@@ -8,7 +8,7 @@ class MessageCard extends React.Component {
 
     done = () => {
 
-        fetch('https://backdoor.cyclic.app/contacts/messagestatus', {
+        fetch('https://backdoor.onrender.com/contacts/messagestatus', {
             method: 'put',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

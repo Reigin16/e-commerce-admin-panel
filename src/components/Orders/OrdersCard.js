@@ -8,7 +8,7 @@ class OrdersCard extends React.Component {
 
     cancelOrder = () => {
 
-        fetch('https://backdoor.cyclic.app/orders/orderstatus', {
+        fetch('https://backdoor.onrender.com/orders/orderstatus', {
             method: 'put',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -27,7 +27,7 @@ class OrdersCard extends React.Component {
 
     shipOrder = () => {
 
-        fetch('https://backdoor.cyclic.app/orders/orderstatus', {
+        fetch('https://backdoor.onrender.com/orders/orderstatus', {
             method: 'put',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -46,7 +46,7 @@ class OrdersCard extends React.Component {
 
     completedOrder = () => {
 
-        fetch('https://backdoor.cyclic.app/orders/orderstatus', {
+        fetch('https://backdoor.onrender.com//orders/orderstatus', {
             method: 'put',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

@@ -13,14 +13,14 @@ class Products extends React.Component {
     }
 
     componentDidMount() {
-        fetch('https://backdoor.cyclic.app/products/getproducts')
+        fetch('https://backdoor.onrender.com/products/getproducts')
             .then(response => response.json())
             .then(items => this.setState({ products: items }));
 
     }
 
     refresh = () => {
-        fetch('http://localhost:9000/products/getproducts')
+        fetch('https://backdoor.onrender.com/products/getproducts')
             .then(response => response.json())
             .then(items => this.setState({ products: items }));
 

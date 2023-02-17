@@ -51,7 +51,7 @@ class AddProducts extends React.Component {
             formdata.append('description', this.state.description)
             formdata.append('type', this.state.type)
             formdata.append('image', this.state.image)
-            fetch('https://backdoor.cyclic.app/products/addproduct', {
+            fetch('https://backdoor.onrender.com/products/addproduct', {
                 method: 'post',
                 body: formdata
             }).then(res => res.json())
