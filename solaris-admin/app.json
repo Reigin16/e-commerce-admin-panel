@@ -22,8 +22,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "buildType": "apk",
+        "foregroundImage": "./assets/someething.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.hieser.solarisadmin"
