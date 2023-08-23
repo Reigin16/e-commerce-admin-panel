@@ -80,7 +80,7 @@ const SignOut = () => {
 
 export default function App({ navigation }) {
   const styles = useStyles();
-  const [userToken, setUserToken] = React.useState(localStorage.getItem('userToken'))
+  const [userToken, setUserToken] = React.useState()
   const [state, dispatch] = React.useReducer(
     (prevState: any, action: any) => {
       switch (action.type) {
@@ -151,7 +151,7 @@ export default function App({ navigation }) {
 
       },
       signOut: () =>  {
-        localStorage.removeItem('userToken')
+       
         SecureStore.deleteItemAsync('userToken')
         window.location.reload();
       dispatch({ type: 'SIGN_OUT' })
