@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { View } from "react-native";
-import { useTheme} from "@rneui/themed";
 import { Button, darkColors } from "@rneui/base";
 import ProductCard from "./Product";
-import { TouchableOpacity, ScrollView, SafeAreaView } from "react-native";
+import { ScrollView, SafeAreaView } from "react-native";
 
 
-const Products = ({navigation }) => {
+const Products = () => {
     const [products, setProducts] = useState([])
 
         let controller = new AbortController()
@@ -34,7 +33,7 @@ const Products = ({navigation }) => {
             <ScrollView scrollEnabled={true}>
         <View style={{backgroundColor: darkColors.background}}>
         
-            <div id="product-wrapper">
+            <View id="product-wrapper">
                 {products.map((item) => {
                     return (
                         <ProductCard  key={item.productname}
@@ -46,7 +45,7 @@ const Products = ({navigation }) => {
                         />
                     )
                 })}
-            </div>
+            </View>
         </View> 
         </ScrollView>
         </SafeAreaView>

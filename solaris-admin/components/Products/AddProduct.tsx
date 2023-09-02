@@ -67,7 +67,7 @@ return (
                 <option value={'Food'}>Food</option>
                 <option value={'Misc'}>Misc</option>
             </select>
-            <input style={{color: 'white'}} type="file" onChange={onImageChange} accept="image/*"></input>
+            
             <Button onPress={addprd}>Add</Button>
         </form>
     </View>

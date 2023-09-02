@@ -1,59 +1,50 @@
-import { View } from "react-native";
-import { Text, Button, darkColors } from "@rneui/themed";
-import { useState, useEffect } from "react";
-import MessageCard from "./MessageCard";
+import { View , Text} from 'react-native';
+import {  Button, darkColors } from '@rneui/themed';
+import { useState, useEffect } from 'react';
+import MessageCard from './MessageCard';
+import { SafeAreaView, ScrollView } from "react-native";
 const Message = () => {
-    const [message, setMessage] = useState([])
-    let controller = new AbortController()
-    useEffect(() => {
-        fetch('https://backdoor.onrender.com/contacts/messages', {
-            signal: controller.signal
-        })
-        .then(response => response.json())
-        .then(items => setMessage(items));
-        
-        return () => {
-            controller.abort()
-        }
-    })
+  const [message, setMessage] = useState([]);
+      useEffect(() => {
+        fetch('https://backdoor.onrender.com/contacts/messages')
+            .then(response => response.json())
+            .then(items => setMessage(items)).catch(e => console.log(e));
+            return () => {
+              
+            }
+      })
     const refresh = () => {
         fetch('https://backdoor.onrender.com/contacts/messages')
             .then(response => response.json())
-            .then(items => setMessage(items));
-
+            .then(items => setMessage(items)).catch(e => console.log(e));
     }
+  return (
+     <SafeAreaView style={{flex: 1}}>
+        <ScrollView scrollEnabled={true}>
+    <View style={{ backgroundColor: darkColors.background }}>
+      <View>
+        <View>
+          {message.length > 0 ? 
+            message.map((msg: any) => {
+              return (
+                <MessageCard
+                  key={msg?.name}
+                  date={msg?.date}
+                  message={msg?.message}
+                  status={msg?.status}
+                  email={msg?.email}
+                  name={msg?.name}
+                  refresh={refresh}
+                />
+              );
+            })
+           : null}
+        </View>
+      </View>
+    </View>
+    </ScrollView>
+    </SafeAreaView>
+  );
+};
 
-    return (
-        <div style={{backgroundColor: darkColors.background}}>
-            <div>
-                <div>
-
-                    {message ? (
-                        message.map((msg) => {
-                            return (
-                                <MessageCard
-                                    key={msg.date}
-                                    date={msg.date}
-                                    message={msg.message}
-                                    status={msg.status}
-                                    email={msg.email}
-                                    name={msg.name}
-                                    refresh={refresh}
-                                />)
-
-                        })
-                    ) : (
-                            <div></div>
-                        )
-
-                    }
-                </div>
-
-
-            </div>
-
-        </div>
-    )
-}
-
-export default Message
+export default Message;

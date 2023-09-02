@@ -1,8 +1,9 @@
-import { View } from "react-native";
-import { Text, Button, Card, useTheme, darkColors } from "@rneui/themed";
+import { View, Button, Text} from "react-native";
+import {darkColors } from "@rneui/themed";
 
-const MessageCard = (props: any) => {
-    const { theme } = useTheme()
+
+const MessageCard = (props) => {
+  
     const done = () => {
 
         fetch('https://backdoor.onrender.com/contacts/messagestatus', {
@@ -21,24 +22,25 @@ const MessageCard = (props: any) => {
 
     }
     let d = new Date(props.date)
+    console.log(props)
     return (
         
-            <Card containerStyle={{backgroundColor: darkColors.background, borderColor: darkColors.greyOutline, margin: 'auto', maxWidth: '600px', marginBottom: '14px', marginTop: '14px'}}>
-                <Text style={{color: 'white'}}>Date: {d.toUTCString()}</Text>
-                <Text style={{color: 'white'}}>Name: {props.name}</Text>
-                <Text style={{color: 'white'}}>Email: {props.email}</Text>
-                <Text style={{color: 'white'}}>Message: {props.message}</Text>
-                <Text style={{color: 'white'}}>Status: {props.status}</Text>
-                <div>
+            <View style={{backgroundColor: darkColors.background, borderWidth: 2, borderColor: darkColors.greyOutline, margin: 'auto', maxWidth: 600, marginBottom: 14, marginTop: 14}}>
+                <Text style={{color: 'white'}}>{d.toUTCString()}</Text>
+                <Text style={{color: 'white'}}>{props.name}</Text>
+                <Text style={{color: 'white'}}>{props.email}</Text>
+                <Text style={{color: 'white'}}>{props.message}</Text>
+                <Text style={{color: 'white'}}>{props.status}</Text>
+                <View>
                     {
                         props.status === "Solved" ? (
-                            <div></div>
+                            <View></View>
                         ) : (
-                            <Button size='sm' onPress={done}>Done</Button>
+                            <Button onPress={done} title="Done"/>
                         )
                     }
                 
-           </div> </Card>
+          </View></View>
         
     )
 }

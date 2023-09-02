@@ -6,19 +6,13 @@ import OrderCard from "./OrderCard";
 import { SafeAreaView, ScrollView } from "react-native";
 const Orders = () => {
     let [orders, setOrders] = useState([])
-    let controller = new AbortController()
-
 
     useEffect(() => {
-        fetch('https://backdoor.onrender.com/orders/orders', {
-            signal: controller.signal
-        })
+        fetch('https://backdoor.onrender.com/orders/orders')
             .then(response => response.json())
             .then(items => setOrders(items));
 
-        return () => {
-            controller.abort()
-        }
+      
     })
     const refresh = () => {
         fetch('https://backdoor.onrender.com/orders/orders')
@@ -30,37 +24,33 @@ const Orders = () => {
     return (
         <SafeAreaView style={{flex: 1}}>
         <ScrollView scrollEnabled={true}>
-        <div style={{ backgroundColor: darkColors.background }}>
-            <div>
-                <div>
+        <View style={{ backgroundColor: darkColors.background }}>
+            <View>
+                <View>
 
-                    {orders ? (
-                        orders.map((order) => {
+                    {orders.length !== 0  ? (
+                        orders?.map((order: any) => {
                             return (
                                 <OrderCard
-                                key={order.date}
-                                date={order.date}
-                                products={order.productnames}
-                                price={order.price}
+                                key={order?.date}
+                                date={order?.date}
+                                products={order?.productnames}
+                                price={order?.price}
                                 address={order.address}
-                                status={order.status}
+                                status={order?.status}
                                 refreshOrders={refresh}
-                                email={order.email}
-                                username={order.username}
+                                email={order?.email}
+                                username={order?.username}
                                 />)
 
                         })
-                    ) : (
-                        <div></div>
-                    )
-
-                    }
-                </div>
+                    ) : null}
+                </View>
 
 
-            </div>
+            </View>
 
-        </div>
+        </View>
         </ScrollView>
         </SafeAreaView>
     )

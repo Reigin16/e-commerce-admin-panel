@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { View } from "react-native";
-import { darkColors, lightColors } from "@rneui/themed";
-import { makeStyles, Button, useThemeMode, Input, useTheme, } from "@rneui/themed";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { darkColors, useTheme } from "@rneui/themed";
+import { makeStyles, Button, useThemeMode, Input } from "@rneui/themed";
+
 import Products from "./Products/Products";
 import AddProduct from './Products/AddProduct'
 import * as SecureStore from 'expo-secure-store'
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer, DarkTheme, DefaultTheme } from "@react-navigation/native";
 import Message from "./Products/Message/Message";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Orders from "./Orders/Orders";
 const AuthContext = React.createContext()
-const Tab = createBottomTabNavigator()
+
 
 const myTheme = {
   dark: true,
@@ -26,7 +25,7 @@ const myTheme = {
 
   }  
 }
-const Login = ({ navigation }) => {
+const Login = () => {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
 
@@ -51,7 +50,7 @@ const Login = ({ navigation }) => {
   return (
 
     <View style={{ backgroundColor: darkColors.background, height: '100%' }}>
-      <div style={{ padding: '20px', margin: 'auto', }}>
+      <View style={{ padding: 20, margin: 'auto', }}>
         <Input
           placeholder="Username"
           value={username}
@@ -63,8 +62,10 @@ const Login = ({ navigation }) => {
           onChangeText={setPassword}
           secureTextEntry
         />
-        <Button title="Sign in" onPress={() => signIn({ username, password })} />
-      </div>
+        <Button title="Sign in" onPress={() => 
+        { console.log(username + " " + password)
+        signIn({ username, password })}} />
+      </View>
     </View>
   )
 }
@@ -78,8 +79,7 @@ const SignOut = () => {
 }
 
 
-export default function App({ navigation }) {
-  const styles = useStyles();
+export default function App( ) {
   const [userToken, setUserToken] = React.useState()
   const [state, dispatch] = React.useReducer(
     (prevState: any, action: any) => {
@@ -143,9 +143,9 @@ export default function App({ navigation }) {
             data
           )
 
-        }).then((user: any) => {
-          if (user.ok) {
-            localStorage.setItem('userToken', 'some-value')
+        }).then(response => response.json()).then((user: any) => {
+          if (user !== 'incorrect form submission') {
+            
             dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' }); }
         })
 
@@ -153,7 +153,6 @@ export default function App({ navigation }) {
       signOut: () =>  {
        
         SecureStore.deleteItemAsync('userToken')
-        window.location.reload();
       dispatch({ type: 'SIGN_OUT' })
       }
     }),
@@ -162,18 +161,18 @@ export default function App({ navigation }) {
 
 
 
-  const Stack = createNativeStackNavigator()
+  const Stack = createBottomTabNavigator()
 
   return (
     <AuthContext.Provider value={authContext}>
-      <NavigationContainer  theme={myTheme}>
+      <NavigationContainer theme={DarkTheme}>
 
-        {userToken == null ? (<Stack.Navigator>
+        {state.userToken == null ? (<Stack.Navigator>
           <Stack.Screen name="Log In" component={Login} /></Stack.Navigator>
         ) : (
-          <Tab.Navigator backBehavior="order" sceneContainerStyle={{display: 'flex', flex: 1}}>
+          <Stack.Navigator backBehavior="order" sceneContainerStyle={{display: 'flex', flex: 1}}>
 
-            <Tab.Screen name='Products' component={Products} options={{
+            <Stack.Screen name='Products' component={Products} options={{
               tabBarActiveTintColor: darkColors.primary,
               tabBarInactiveTintColor: darkColors.grey5,
               headerLeft: (props) => {
@@ -187,25 +186,25 @@ export default function App({ navigation }) {
            </>
           ),
         }} />
-            <Tab.Screen name="Message" component={Message} options={{
+            <Stack.Screen name="Message" component={Message} options={{
         
           headerRight: () => (
            <SignOut />
           ),
         }} />
-        <Tab.Screen name="Add Product" component={AddProduct} options={{
+        <Stack.Screen name="Add Product" component={AddProduct} options={{
         
         headerRight: () => (
          <SignOut />
         ),
       }} />
-      <Tab.Screen name="Orders" component={Orders} options={{
+      <Stack.Screen name="Orders" component={Orders} options={{
         
         headerRight: () => (
          <SignOut />
         ),
       }} />
-          </Tab.Navigator>
+          </Stack.Navigator>
         )}
       </NavigationContainer>
     </AuthContext.Provider>
