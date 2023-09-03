@@ -54,11 +54,13 @@ const Login = () => {
         <Input
           placeholder="Username"
           value={username}
+          style={{color:'white'}}
           onChangeText={setUsername}
         />
         <Input
           placeholder="Password"
           value={password}
+          style={{color: 'white'}}
           onChangeText={setPassword}
           secureTextEntry
         />
@@ -152,6 +154,7 @@ export default function App( ) {
           }
            let test = generateRandomString(8)
            console.log(test)
+           SecureStore.setItemAsync('userToken', test).catch(e => console.error(e))
             dispatch({ type: 'SIGN_IN', token: test }); }
         })
 

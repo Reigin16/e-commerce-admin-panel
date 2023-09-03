@@ -27,10 +27,10 @@ const MessageCard = (props) => {
         
             <View style={{backgroundColor: darkColors.background, borderWidth: 2, borderColor: darkColors.greyOutline, margin: 'auto', maxWidth: 600, marginBottom: 14, marginTop: 14}}>
                 <Text style={{color: 'white'}}>{d.toUTCString()}</Text>
-                <Text style={{color: 'white'}}>{props.name}</Text>
-                <Text style={{color: 'white'}}>{props.email}</Text>
-                <Text style={{color: 'white'}}>{props.message}</Text>
-                <Text style={{color: 'white'}}>{props.status}</Text>
+                <Text style={{color: 'white'}}>{'Username: '+props.name}</Text>
+                <Text style={{color: 'white'}}>{'Email: '+props.email}</Text>
+                <Text style={{color: 'white'}}>{'Message: '+props.message}</Text>
+                <Text style={{color: 'white'}}>{'Status: '+props.status}</Text>
                 <View>
                     {
                         props.status === "Solved" ? (

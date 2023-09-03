@@ -1,11 +1,10 @@
 import { useState } from "react";
-import {Image} from 'react-native'
-import { Button, Card,  darkColors } from "@rneui/base";
-import { useTheme, Text } from "@rneui/themed";
-import { SafeAreaView, ScrollView, TouchableOpacity } from "react-native";
+import { Text} from 'react-native'
+import { Button, Card, Image,  darkColors } from "@rneui/base";
+
 
 const ProductCard = (props: any) => {
-    const {theme} = useTheme()
+   
     const deleteProduct = () => {
         let result = window.confirm('You sure.?');
         if (result) {
@@ -28,7 +27,11 @@ const ProductCard = (props: any) => {
         
         
         <Card containerStyle={{backgroundColor: darkColors.background, borderColor: darkColors.greyOutline, maxWidth: 600, margin: 'auto', marginTop: 14, marginBottom: 14}}>
-            <Image source={`https://firebasestorage.googleapis.com/v0/b/dashboard-d7e5d.appspot.com/o/${props.image}?alt=media`} />
+            <Image style={{
+    width: 300,
+    height: 200,
+    resizeMode: 'contain',
+  }} source={{uri:`https://firebasestorage.googleapis.com/v0/b/dashboard-d7e5d.appspot.com/o/${props.image}?alt=media`}} />
             <Text style={{ color: 'white'}}>{props.productname}</Text>
             <Text style={{fontSize: 13, color: 'white'}}>{props.description}</Text>
             <Text style={{fontSize: 13, color: 'white', }}>$ {props.price}</Text>
