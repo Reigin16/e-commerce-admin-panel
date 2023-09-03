@@ -79,8 +79,7 @@ const SignOut = () => {
 }
 
 
-export default function App( ) {
-  const [userToken, setUserToken] = React.useState("" as any) 
+export default function App( ) { 
   const [state, dispatch] = React.useReducer(
     (prevState: any, action: any) => {
       switch (action.type) {
@@ -94,7 +93,7 @@ export default function App( ) {
           return {
             ...prevState,
             isSignout: false,
-            setuserToken: action.token,
+            userToken: action.token,
           };
         case 'SIGN_OUT':
           return {
@@ -116,9 +115,9 @@ export default function App( ) {
     // Fetch the token from storage then navigate to our appropriate place
     const bootstrapAsync = async () => {
     
-
+        let userToken;
       try {
-       setUserToken(await SecureStore.getItemAsync('userToken'));
+       userToken = await SecureStore.getItemAsync('userToken');
       } catch (e) {
        console.log(e)
       }
@@ -151,7 +150,8 @@ export default function App( ) {
               const randomString = random.join("");
               return randomString;
           }
-           let test = () => { generateRandomString(8)}
+           let test = generateRandomString(8)
+           console.log(test)
             dispatch({ type: 'SIGN_IN', token: test }); }
         })
 
