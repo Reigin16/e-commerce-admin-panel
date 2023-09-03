@@ -80,7 +80,7 @@ const SignOut = () => {
 
 
 export default function App( ) {
-  const [userToken, setUserToken] = React.useState()
+  const [userToken, setUserToken] = React.useState("" as any) 
   const [state, dispatch] = React.useReducer(
     (prevState: any, action: any) => {
       switch (action.type) {
@@ -94,7 +94,7 @@ export default function App( ) {
           return {
             ...prevState,
             isSignout: false,
-            userToken: action.token,
+            setuserToken: action.token,
           };
         case 'SIGN_OUT':
           return {
@@ -115,18 +115,15 @@ export default function App( ) {
   React.useEffect(() => {
     // Fetch the token from storage then navigate to our appropriate place
     const bootstrapAsync = async () => {
-      let userToken;
+    
 
       try {
-        userToken = await SecureStore.getItemAsync('userToken');
+       setUserToken(await SecureStore.getItemAsync('userToken'));
       } catch (e) {
-        // Restoring token failed
+       console.log(e)
       }
 
-      // After restoring token, we may need to validate it in production apps
-
-      // This will switch to the App screen or Auth screen and this loading
-      // screen will be unmounted and thrown away.
+      console.log(userToken)
       dispatch({ type: 'RESTORE_TOKEN', token: userToken });
     };
 
@@ -145,8 +142,17 @@ export default function App( ) {
 
         }).then(response => response.json()).then((user: any) => {
           if (user !== 'incorrect form submission') {
-            
-            dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' }); }
+            const generateRandomString = (lenth) => {
+              const char = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+              const random = Array.from(
+                  {length: lenth},
+                  () => char[Math.floor(Math.random() * char.length)]
+              );
+              const randomString = random.join("");
+              return randomString;
+          }
+           let test = () => { generateRandomString(8)}
+            dispatch({ type: 'SIGN_IN', token: test }); }
         })
 
       },
