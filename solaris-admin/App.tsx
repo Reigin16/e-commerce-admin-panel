@@ -1,7 +1,7 @@
 import React from "react";
 import { createTheme, darkColors, ThemeProvider } from "@rneui/themed";
 import Component from "./components/MyComponent";
-
+import {registerRootComponent} from 'expo'
 
 
 export default function App() {
@@ -11,3 +11,4 @@ export default function App() {
     </ThemeProvider>
   );
 }
+registerRootComponent(App)
